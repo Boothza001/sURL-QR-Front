@@ -8,6 +8,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
   const [clicked, setClicked] = useState(false);
   const handleShortUrlClick = async () => {
     try {
+      window.open(url, "_blank");
       const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`, {
         method: "GET",
         headers: {
@@ -18,7 +19,6 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         console.log("add count succ");
         setClicked(false);
         setClicked(true);
-        // ไม่ต้องเปิด URL ปลายทาง โดยตรงแล้ว เนื่องจาก endpoint ใหม่จะทำการ redirect ไปยัง URL ปลายทางแล้ว
       } else {
         throw new Error("err count");
       }
