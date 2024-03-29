@@ -4,32 +4,26 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
+  const svaddr = "https://surl-qr-back-2.onrender.com";
   const [clicked, setClicked] = useState(false);
   const handleShortUrlClick = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/update/${shortUrl}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ surl: shortUrl }), // ส่ง shortUrl ไปใน body ของ request
-        }
-      );
+      const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.ok) {
-        console.log("เพิ่มค่า count สำเร็จ");
-        // ลบค่า clicked ที่ตั้งไว้ก่อนหน้านี้
+        console.log("add count succ");
         setClicked(false);
-        // ตั้งค่า clicked เมื่อคลิก
         setClicked(true);
-        // เปิดหน้าต่างใหม่
-        window.open(`${url}`, "_blank");
+        // ไม่ต้องเปิด URL ปลายทาง โดยตรงแล้ว เนื่องจาก endpoint ใหม่จะทำการ redirect ไปยัง URL ปลายทางแล้ว
       } else {
-        throw new Error("ไม่สามารถเพิ่มค่า count ได้");
+        throw new Error("err count");
       }
     } catch (error) {
-      console.error("มีข้อผิดพลาดในการเพิ่มค่า count:", error);
+      console.error("err count:", error);
     }
   };
 
@@ -61,7 +55,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
       </Box>
       <Input defaultValue={url} isReadOnly cursor="default" mb="2" />
       <Input
-        defaultValue={`https://www.shortUrl.com/${shortUrl}`}
+        defaultValue={`${svaddr}/${shortUrl}`}
         cursor="pointer"
         onClick={handleShortUrlClick}
       />

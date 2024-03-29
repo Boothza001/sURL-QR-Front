@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import axios from "axios";
-import CardMain from "./Card";
+import CardMain from "./CardMain";
 
 export default function InputURL() {
+  const svaddr = "http://localhost:3000";
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
 
@@ -15,12 +16,9 @@ export default function InputURL() {
 
   const onSubmitGenerateQRCode = async () => {
     try {
-      const response = await axios.post(
-        "https://surl-qr-back.onrender.com/api/create",
-        {
-          url: text,
-        }
-      );
+      const response = await axios.post(`${svaddr}/api/create`, {
+        url: text,
+      });
       fetchData();
     } catch (error) {
       console.error(error);
@@ -29,9 +27,7 @@ export default function InputURL() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://surl-qr-back.onrender.com/api/show"
-      );
+      const response = await axios.get(`${svaddr}/api/show`);
       setData(response.data);
     } catch (error) {
       console.error(error);
@@ -40,7 +36,7 @@ export default function InputURL() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://surl-qr-back.onrender.com/api/delete/${id}`);
+      await axios.delete(`${svaddr}/api/delete/${id}`);
       fetchData();
     } catch (error) {
       console.error(error);
