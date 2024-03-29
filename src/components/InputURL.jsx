@@ -15,9 +15,12 @@ export default function InputURL() {
 
   const onSubmitGenerateQRCode = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/create", {
-        url: text,
-      });
+      const response = await axios.post(
+        "https://surl-qr-back.onrender.com/api/create",
+        {
+          url: text,
+        }
+      );
       fetchData();
     } catch (error) {
       console.error(error);
@@ -26,7 +29,9 @@ export default function InputURL() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/show");
+      const response = await axios.get(
+        "https://surl-qr-back.onrender.com/api/show"
+      );
       setData(response.data);
     } catch (error) {
       console.error(error);
@@ -35,7 +40,7 @@ export default function InputURL() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/delete/${id}`);
+      await axios.delete(`https://surl-qr-back.onrender.com/api/delete/${id}`);
       fetchData();
     } catch (error) {
       console.error(error);
