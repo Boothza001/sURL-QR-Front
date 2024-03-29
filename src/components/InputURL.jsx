@@ -4,8 +4,9 @@ import axios from "axios";
 import CardMain from "./CardMain";
 
 export default function InputURL() {
-  const svaddr = "http://localhost:3000";
-  // const svaddr = "https://surl-qr-back-2.onrender.com";
+  const svaddr = "https://surl-qr-back-2.onrender.com";
+  // const svaddr = "http://localhost:3000";
+
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
   const [isValidUrl, setIsValidUrl] = useState(true); // เพิ่ม state เพื่อตรวจสอบความถูกต้องของ URL

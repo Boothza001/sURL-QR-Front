@@ -6,9 +6,6 @@ import QRCode from "qrcode.react";
 function CardMain({ url, shortUrl, count, onDelete }) {
   const svaddr = "https://surl-qr-back-2.onrender.com";
   // const svaddr = "http://localhost:3000";
-
-  // const [clicked, setClicked] = useState(false);
-
   const handleShortUrlClick = async () => {
     try {
       window.open(url, "_blank");
@@ -18,8 +15,6 @@ function CardMain({ url, shortUrl, count, onDelete }) {
           "Content-Type": "application/json",
         },
       });
-      // setClicked(false);
-      // setClicked(true);
     } catch (error) {
       console.error("err count:", error);
     }
