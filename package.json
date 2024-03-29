@@ -2,6 +2,7 @@
   "name": "synerry",
   "private": true,
   "version": "0.0.0",
+  "proxy": "http://localhost:3000",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,6 +22,7 @@
     "framer-motion": "^11.0.22",
     "mongoose": "^8.2.3",
     "nodemon": "^3.1.0",
+    "qrcode.react": "^3.1.0",
     "randomstring": "^1.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

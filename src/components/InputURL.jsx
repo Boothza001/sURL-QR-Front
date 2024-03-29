@@ -47,11 +47,7 @@ export default function InputURL() {
       <Text fontSize="3xl" as="b">
         Storten URL
       </Text>
-      <Flex
-        flexDir={{ base: "column", md: "row" }}
-        minW="600px"
-        align="center" 
-      >
+      <Flex flexDir={{ base: "column", md: "row" }} minW="600px" align="center">
         <Input
           flex="1"
           placeholder="url : "
