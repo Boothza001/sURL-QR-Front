@@ -18,13 +18,9 @@ function CardMain({ url, shortUrl, count, onDelete }) {
           "Content-Type": "application/json",
         },
       });
-      if (response.ok) {
-        console.log("add count succ");
-        setClicked(false);
-        setClicked(true);
-      } else {
-        throw new Error("err count");
-      }
+      console.log("add count succ");
+      setClicked(false);
+      setClicked(true);
     } catch (error) {
       console.error("err count:", error);
     }

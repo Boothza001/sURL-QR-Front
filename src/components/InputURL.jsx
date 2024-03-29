@@ -11,7 +11,7 @@ export default function InputURL() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const handleChange = (e) => setText(e.target.value);
 
@@ -71,7 +71,7 @@ export default function InputURL() {
 
       <VStack spacing={4} align="stretch" w="100%" mt={8} justify="center">
         <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
-          {data.map((item) => (
+          {data.slice().reverse().map((item) => (
             <CardMain
               key={item._id}
               url={item.url}
