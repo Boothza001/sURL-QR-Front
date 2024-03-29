@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Stack, Input } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
+  // const svaddr = "https://surl-qr-back-2.onrender.com";
+  const svaddr = "http://localhost:3000";
+
   const [clicked, setClicked] = useState(false);
+
   const handleShortUrlClick = async () => {
     try {
       window.open(url, "_blank");
@@ -70,6 +73,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         <Button colorScheme="teal" variant="solid" cursor="default">
           {count}
         </Button>
+
         <Button
           rightIcon={<DeleteIcon />}
           colorScheme="red"

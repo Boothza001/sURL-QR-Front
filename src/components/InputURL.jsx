@@ -5,6 +5,7 @@ import CardMain from "./CardMain";
 
 export default function InputURL() {
   const svaddr = "http://localhost:3000";
+  // const svaddr = "https://surl-qr-back-2.onrender.com";
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
 
