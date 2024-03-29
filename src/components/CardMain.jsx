@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Button, Stack, Input } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
@@ -7,7 +7,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
   // const svaddr = "https://surl-qr-back-2.onrender.com";
   const svaddr = "http://localhost:3000";
 
-  const [clicked, setClicked] = useState(false);
+  // const [clicked, setClicked] = useState(false);
 
   const handleShortUrlClick = async () => {
     try {
@@ -18,9 +18,8 @@ function CardMain({ url, shortUrl, count, onDelete }) {
           "Content-Type": "application/json",
         },
       });
-      console.log("add count succ");
-      setClicked(false);
-      setClicked(true);
+      // setClicked(false);
+      // setClicked(true);
     } catch (error) {
       console.error("err count:", error);
     }

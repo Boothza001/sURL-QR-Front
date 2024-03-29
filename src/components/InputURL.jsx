@@ -8,21 +8,37 @@ export default function InputURL() {
   // const svaddr = "https://surl-qr-back-2.onrender.com";
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
+  const [isValidUrl, setIsValidUrl] = useState(true); // เพิ่ม state เพื่อตรวจสอบความถูกต้องของ URL
+  const [inputFilled, setInputFilled] = useState(false); // เพิ่ม state เพื่อตรวจสอบว่า Input ถูกกรอกหรือไม่
+  const urlRegex = /^https:\/\//i;
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
+
+  useEffect(() => {
+    setIsValidUrl(text.trim() === "" || urlRegex.test(text.trim()));
+    setInputFilled(text.trim() !== ""); // ตรวจสอบว่า Input ถูกกรอกหรือไม่
+  }, [text]);
 
   const handleChange = (e) => setText(e.target.value);
 
   const onSubmitGenerateQRCode = async () => {
-    try {
-      const response = await axios.post(`${svaddr}/api/create`, {
-        url: text,
-      });
-      fetchData();
-    } catch (error) {
-      console.error(error);
+    if (isValidUrl && inputFilled) {
+      try {
+        const response = await axios.get(text, { crossOrigin: true });
+        if (response.status === 200) {
+          const qrResponse = await axios.post(`${svaddr}/api/create`, {
+            url: text,
+          });
+          fetchData();
+          setText("");
+        } else {
+          alert("URL does not exist!");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -53,7 +69,7 @@ export default function InputURL() {
         <Input
           flex="1"
           placeholder="url : "
-          size={["lg", "md"]}
+          size={["lg", "lg"]}
           onChange={handleChange}
         />
         <Button
@@ -64,6 +80,7 @@ export default function InputURL() {
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGenerateQRCode}
           name="url"
+          isDisabled={!isValidUrl || !inputFilled}
         >
           Button
         </Button>
@@ -71,16 +88,19 @@ export default function InputURL() {
 
       <VStack spacing={4} align="stretch" w="100%" mt={8} justify="center">
         <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
-          {data.slice().reverse().map((item) => (
-            <CardMain
-              key={item._id}
-              url={item.url}
-              shortUrl={item.surl}
-              qrUrl={item.qrurl}
-              count={item.count}
-              onDelete={() => handleDelete(item._id)}
-            />
-          ))}
+          {data
+            .slice()
+            .reverse()
+            .map((item) => (
+              <CardMain
+                key={item._id}
+                url={item.url}
+                shortUrl={item.surl}
+                qrUrl={item.qrurl}
+                count={item.count}
+                onDelete={() => handleDelete(item._id)}
+              />
+            ))}
         </HStack>
       </VStack>
     </VStack>
