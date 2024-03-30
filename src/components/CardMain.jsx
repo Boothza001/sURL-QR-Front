@@ -15,8 +15,9 @@ import { DeleteIcon, CopyIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
-  const svaddr =
-    "https://s-url-qr-front-6y076vngp-boothza001s-projects.vercel.app";
+  // const svaddr =
+  //   "https://s-url-qr-front-6y076vngp-boothza001s-projects.vercel.app";
+  const svaddr = "http://localhost:3000";
 
   const handleShortUrlClick = async () => {
     try {
