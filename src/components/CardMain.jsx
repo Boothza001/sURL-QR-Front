@@ -20,7 +20,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
 
   const handleShortUrlClick = async () => {
     try {
-      const response = await fetch(`${svaddr}/${shortUrl}`);
+      const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`);
       window.open(url, "_blank");
       if (response.ok) {
         const data = await response.json();
