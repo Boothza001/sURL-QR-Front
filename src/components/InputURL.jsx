@@ -3,7 +3,8 @@ import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import CardMain from "./CardMain";
 
 export default function InputURL() {
-  const svaddr = "http://localhost:3000";
+  const svaddr =
+    "https://s-url-qr-front-6y076vngp-boothza001s-projects.vercel.app";
 
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
