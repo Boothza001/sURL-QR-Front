@@ -1,11 +1,11 @@
 # sURL web (front) 
 Step 1 : เข้า VS-Code เข้า Terminal และพิมพ์
 ```
-git clone https://github.com/Boothza001/sURL-QR-Back.git
+https://github.com/Boothza001/sURL-QR-Front.git
 ``` 
 Step 2 : พิมพ์ใน Terminal 
 ```
-cd sURL-QR-Back
+cd sURL-QR-Front
 ```
 Step 4 : พิมพ์ใน Terminal
 ```
