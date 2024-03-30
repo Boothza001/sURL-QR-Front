@@ -16,3 +16,6 @@ Step 5 : พิมพ์ใน Terminal
 npm run dev
 ```
 Step 6 : เพื่อเปิดหน้าเว็บไซต์ด้วยการเข้า url localhost ที่ terminal
+```
+http://localhost:Portnumber/
+```
