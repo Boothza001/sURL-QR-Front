@@ -1,4 +1,4 @@
-# sURL web (front) 
+# sURL-QR (front) 
 Step 1 : เข้า VS-Code เข้า Terminal และพิมพ์
 ```
 https://github.com/Boothza001/sURL-QR-Front.git
