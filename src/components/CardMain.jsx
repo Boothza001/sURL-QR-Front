@@ -1,23 +1,29 @@
-import React, { useState } from "react";
-import { Box, Button, Stack, Input } from "@chakra-ui/react";
+import React from "react";
+import {
+  Box,
+  Button,
+  Stack,
+  Text,
+  InputGroup,
+  InputLeftAddon,
+  Input,
+} from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
-  // const svaddr = "http://localhost:3000";
+  const svaddr = "http://localhost:3000";
+
   const handleShortUrlClick = async () => {
     try {
-      window.open(svaddr + "/" + shortUrl, "_blank");
-      const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      window.open(url, "_blank");
+      const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`);
+      if (response.ok) {
+        window.open(url, "_blank");
+      } else {
+        console.error("Error redirecting:", response.statusText);
+      }
     } catch (error) {
-      console.error("err count:", error);
+      console.error("Error redirecting:", error);
     }
   };
 
@@ -45,15 +51,23 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         justifyContent="center"
         alignItems="center"
       >
-        <QRCode value={svaddr} alt="QR Code" size="250" />
+        <QRCode value={url} alt="QR Code" size="250" />
       </Box>
-      <Input defaultValue={url} isReadOnly cursor="default" mb="2" />
-      <Input
-        defaultValue={`${svaddr}/${shortUrl}`}
-        cursor="pointer"
-        onClick={handleShortUrlClick}
-      />
-
+      <Stack spacing={4} alignItems="center">
+        <InputGroup>
+          <InputLeftAddon children="URL" />
+          <Input type="text" value={url} isReadOnly placeholder="Enter URL" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Short URL" />
+          <Input
+            type="text"
+            value={`${svaddr}/${shortUrl}`}
+            isReadOnly
+            placeholder="Enter Short URL"
+          />
+        </InputGroup>
+      </Stack>
       <Stack
         direction="row"
         spacing={4}
@@ -64,7 +78,6 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         <Button colorScheme="teal" variant="solid" cursor="default">
           {count}
         </Button>
-
         <Button
           rightIcon={<DeleteIcon />}
           colorScheme="red"

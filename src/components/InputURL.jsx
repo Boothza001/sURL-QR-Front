@@ -1,42 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
-import axios from "axios";
 import CardMain from "./CardMain";
 
 export default function InputURL() {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
-  // const svaddr = "http://localhost:3000";
+  const svaddr = "http://localhost:3000";
 
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
+  const [isValidUrl, setIsValidUrl] = useState(true);
+  const [inputFilled, setInputFilled] = useState(false);
+  const urlRegex = /^https:\/\//i;
 
   useEffect(() => {
     fetchData();
   });
 
+  useEffect(() => {
+    setIsValidUrl(text.trim() === "" || urlRegex.test(text.trim()));
+    setInputFilled(text.trim() !== "");
+  }, [text]);
+
   const handleChange = (e) => setText(e.target.value);
 
   const onSubmitGenerateQRCode = async () => {
-    try {
-      const response = await axios.get(text, { crossOrigin: true });
-      if (response.status === 200) {
-        const qrResponse = await axios.post(`${svaddr}/api/create`, {
-          url: text,
-        });
-        fetchData();
-        setText("");
-      } else {
-        alert("URL does not exist!");
+    if (isValidUrl && inputFilled) {
+      try {
+        const response = await fetch(text);
+        if (response.ok) {
+          const qrResponse = await fetch(`${svaddr}/api/create`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url: text }),
+          });
+          fetchData();
+          setText("");
+        } else {
+          alert("URL does not exist!");
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${svaddr}/api/show`);
-      setData(response.data);
+      const response = await fetch(`${svaddr}/api/show`);
+      const data = await response.json();
+      setData(data);
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +57,9 @@ export default function InputURL() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${svaddr}/api/delete/${id}`);
+      await fetch(`${svaddr}/api/delete/${id}`, {
+        method: "DELETE",
+      });
       fetchData();
     } catch (error) {
       console.error(error);
@@ -71,11 +86,11 @@ export default function InputURL() {
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGenerateQRCode}
           name="url"
+          isDisabled={!isValidUrl || !inputFilled}
         >
           Button
         </Button>
       </Flex>
-
       <VStack spacing={4} align="stretch" w="100%" mt={8} justify="center">
         <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
           {data
