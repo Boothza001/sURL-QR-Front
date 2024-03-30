@@ -37,11 +37,9 @@ export default function InputURL() {
           setText("");
         } else {
           setText("");
-          // alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
         }
       } catch (error) {
         setText("");
-        // alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
       }
     }
   };
