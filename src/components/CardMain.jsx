@@ -7,8 +7,11 @@ import {
   InputGroup,
   InputLeftAddon,
   Input,
+  InputLeftElement,
+  Flex,
+  Center,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon, CopyIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
@@ -17,8 +20,9 @@ function CardMain({ url, shortUrl, count, onDelete }) {
   const handleShortUrlClick = async () => {
     try {
       const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`);
+      window.open(data.url, "_blank");
       if (response.ok) {
-        window.open(url, "_blank");
+        const data = await response.json();
       } else {
         console.error("Error redirecting:", response.statusText);
       }
@@ -56,15 +60,15 @@ function CardMain({ url, shortUrl, count, onDelete }) {
       <Stack spacing={4} alignItems="center">
         <InputGroup>
           <InputLeftAddon children="URL" />
-          <Input type="text" value={url} isReadOnly placeholder="Enter URL" />
+          <Input type="text" value={url} isReadOnly />
         </InputGroup>
         <InputGroup>
-          <InputLeftAddon children="Short URL" />
+          <InputLeftAddon children="sURL" />
           <Input
             type="text"
             value={`${svaddr}/${shortUrl}`}
+            onClick={handleShortUrlClick}
             isReadOnly
-            placeholder="Enter Short URL"
           />
         </InputGroup>
       </Stack>
@@ -75,11 +79,23 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         mt="4"
         justifyContent="space-between"
       >
-        <Button colorScheme="teal" variant="solid" cursor="default">
-          {count}
+        <Center w="40px" h="40px" bg="tomato" color="white">
+          <Box as="span" fontWeight="bold" fontSize="lg">
+            {count}
+          </Box>
+        </Center>
+        <Button
+          leftIcon={<CopyIcon />}
+          colorScheme="blue"
+          variant="solid"
+          onClick={() => {
+            navigator.clipboard.writeText(`${svaddr}/${shortUrl}`);
+          }}
+        >
+          Copy
         </Button>
         <Button
-          rightIcon={<DeleteIcon />}
+          leftIcon={<DeleteIcon />}
           colorScheme="red"
           variant="solid"
           onClick={onDelete}
