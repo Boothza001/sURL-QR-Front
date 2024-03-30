@@ -56,7 +56,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         justifyContent="center"
         alignItems="center"
       >
-        <QRCode value={url} alt="QR Code" size="250" />
+        <QRCode value={`${svaddr}/${shortUrl}`} alt="QR Code" size="250" />
       </Box>
       <Stack spacing={4} alignItems="center">
         <InputGroup>
