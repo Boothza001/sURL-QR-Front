@@ -3,26 +3,23 @@ import {
   Box,
   Button,
   Stack,
-  Text,
   InputGroup,
   InputLeftAddon,
   Input,
-  InputLeftElement,
-  Flex,
   Center,
 } from "@chakra-ui/react";
 import { DeleteIcon, CopyIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
-  // const svaddr = "http://localhost:3000";
+  // const svaddr = "https://surl-qr-back-2.onrender.com";
+  const svaddr = "http://localhost:3000";
 
   const handleShortUrlClick = async () => {
     try {
-      const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`);
-      window.open(url, "_blank");
+      const response = await fetch(`${svaddr}/${shortUrl}`);
       if (response.ok) {
+        window.open(url, "_blank");
         const data = await response.json();
       } else {
         console.error("Error redirecting:", response.statusText);

@@ -3,12 +3,11 @@ import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import CardMain from "./CardMain";
 
 export default function InputURL() {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
-  // const svaddr = "http://localhost:3000";
+  // const svaddr = "https://surl-qr-back-2.onrender.com";
+  const svaddr = "http://localhost:3000";
 
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
-  const [isValidUrl, setIsValidUrl] = useState(true);
   const [inputFilled, setInputFilled] = useState(false);
   const urlRegex = /^https:\/\//i;
 
@@ -17,14 +16,13 @@ export default function InputURL() {
   });
 
   useEffect(() => {
-    setIsValidUrl(text.trim() === "" || urlRegex.test(text.trim()));
     setInputFilled(text.trim() !== "");
   }, [text]);
 
   const handleChange = (e) => setText(e.target.value);
 
   const onSubmitGen = async () => {
-    if (isValidUrl && inputFilled) {
+    if (inputFilled) {
       try {
         const response = await fetch(text);
         if (response.ok) {
@@ -39,11 +37,11 @@ export default function InputURL() {
           setText("");
         } else {
           setText("");
-          alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
+          // alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
         }
       } catch (error) {
         setText("");
-        alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
+        // alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
       }
     }
   };
@@ -89,7 +87,7 @@ export default function InputURL() {
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGen}
           name="url"
-          isDisabled={!isValidUrl || !inputFilled}
+          isDisabled={!inputFilled}
         >
           Button
         </Button>
