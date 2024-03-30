@@ -12,8 +12,8 @@ import { DeleteIcon, CopyIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
-  // const svaddr = "https://surl-qr-back-2.onrender.com";
-  const svaddr = "http://localhost:3000";
+  const svaddr = "https://surl-qr-back-2.onrender.com";
+  // const svaddr = "http://localhost:3000";
 
   const handleShortUrlClick = async () => {
     try {
