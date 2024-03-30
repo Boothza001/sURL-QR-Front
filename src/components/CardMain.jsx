@@ -7,6 +7,7 @@ import {
   InputLeftAddon,
   Input,
   Center,
+  Link,
 } from "@chakra-ui/react";
 import { DeleteIcon, CopyIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
@@ -15,19 +16,19 @@ function CardMain({ url, shortUrl, count, onDelete }) {
   const svaddr = "https://surl-qr-back-2.onrender.com";
   // const svaddr = "http://localhost:3000";
 
-  const handleShortUrlClick = async () => {
-    try {
-      const response = await fetch(`${svaddr}/${shortUrl}`);
-      if (response.ok) {
-        window.open(url, "_blank");
-        const data = await response.json();
-      } else {
-        console.error("Error redirecting:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error redirecting:", error);
-    }
-  };
+  // const handleShortUrlClick = async () => {
+  //   try {
+  //     const response = await fetch(`${svaddr}/${shortUrl}`);
+  //     if (response.ok) {
+  //       window.open(url, "_blank");
+  //       const data = await response.json();
+  //     } else {
+  //       console.error("Error redirecting:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error redirecting:", error);
+  //   }
+  // };
 
   return (
     <Box
@@ -60,7 +61,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
           <InputLeftAddon children="URL" />
           <Input type="text" value={url} isReadOnly />
         </InputGroup>
-        <InputGroup>
+        {/* <InputGroup>
           <InputLeftAddon children="sURL" />
           <Input
             type="text"
@@ -68,7 +69,11 @@ function CardMain({ url, shortUrl, count, onDelete }) {
             onClick={handleShortUrlClick}
             isReadOnly
           />
-        </InputGroup>
+        </InputGroup> */}
+        <Link
+          href={`${svaddr}/${shortUrl}`}
+          isExternal
+        >{`${svaddr}/${shortUrl}`}</Link>
       </Stack>
       <Stack
         direction="row"
