@@ -8,13 +8,14 @@ function CardMain({ url, shortUrl, count, onDelete }) {
   // const svaddr = "http://localhost:3000";
   const handleShortUrlClick = async () => {
     try {
-      window.open(url, "_blank");
+      window.open(svaddr + "/" + shortUrl, "_blank");
       const response = await fetch(`${svaddr}/api/redirect/${shortUrl}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
+      window.open(url, "_blank");
     } catch (error) {
       console.error("err count:", error);
     }
@@ -44,7 +45,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         justifyContent="center"
         alignItems="center"
       >
-        <QRCode value={url} alt="QR Code" size="250" />
+        <QRCode value={svaddr} alt="QR Code" size="250" />
       </Box>
       <Input defaultValue={url} isReadOnly cursor="default" mb="2" />
       <Input

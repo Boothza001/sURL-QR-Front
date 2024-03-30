@@ -9,37 +9,27 @@ export default function InputURL() {
 
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
-  const [isValidUrl, setIsValidUrl] = useState(true); // เพิ่ม state เพื่อตรวจสอบความถูกต้องของ URL
-  const [inputFilled, setInputFilled] = useState(false); // เพิ่ม state เพื่อตรวจสอบว่า Input ถูกกรอกหรือไม่
-  const urlRegex = /^https:\/\//i;
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    setIsValidUrl(text.trim() === "" || urlRegex.test(text.trim()));
-    setInputFilled(text.trim() !== ""); // ตรวจสอบว่า Input ถูกกรอกหรือไม่
-  }, [text]);
+  });
 
   const handleChange = (e) => setText(e.target.value);
 
   const onSubmitGenerateQRCode = async () => {
-    if (isValidUrl && inputFilled) {
-      try {
-        const response = await axios.get(text, { crossOrigin: true });
-        if (response.status === 200) {
-          const qrResponse = await axios.post(`${svaddr}/api/create`, {
-            url: text,
-          });
-          fetchData();
-          setText("");
-        } else {
-          alert("URL does not exist!");
-        }
-      } catch (error) {
-        console.error(error);
+    try {
+      const response = await axios.get(text, { crossOrigin: true });
+      if (response.status === 200) {
+        const qrResponse = await axios.post(`${svaddr}/api/create`, {
+          url: text,
+        });
+        fetchData();
+        setText("");
+      } else {
+        alert("URL does not exist!");
       }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -81,7 +71,6 @@ export default function InputURL() {
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGenerateQRCode}
           name="url"
-          isDisabled={!isValidUrl || !inputFilled}
         >
           Button
         </Button>
