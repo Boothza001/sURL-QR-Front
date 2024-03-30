@@ -22,7 +22,7 @@ export default function InputURL() {
 
   const handleChange = (e) => setText(e.target.value);
 
-  const onSubmitGenerateQRCode = async () => {
+  const onSubmitGen = async () => {
     if (isValidUrl && inputFilled) {
       try {
         const response = await fetch(text);
@@ -37,10 +37,12 @@ export default function InputURL() {
           fetchData();
           setText("");
         } else {
-          alert("URL does not exist!");
+          setText("");
+          alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
         }
       } catch (error) {
-        console.error(error);
+        setText("");
+        alert("URL นี้ไม่มีอยู่จริงครับ เพราะ Fetch แล้วไม่เจอ !!!");
       }
     }
   };
@@ -84,7 +86,7 @@ export default function InputURL() {
           size="lg"
           ml={{ base: "0", md: "4" }}
           mt={{ base: "4", md: "0" }}
-          onClick={onSubmitGenerateQRCode}
+          onClick={onSubmitGen}
           name="url"
           isDisabled={!isValidUrl || !inputFilled}
         >
