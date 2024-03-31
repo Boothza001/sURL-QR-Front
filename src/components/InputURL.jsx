@@ -3,7 +3,7 @@ import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import CardMain from "./CardMain";
 
 function InputURL() {
-  const svaddr = "http://localhost:3000";
+  const svaddr = "https://surl-qr-back-2.onrender.com";
 
   const [text, setText] = useState("");
   const handleChange = (event) => {
@@ -24,62 +24,74 @@ function InputURL() {
 
   useEffect(() => {
     fetchData();
-  }, []); // เรียก fetchData เมื่อคอมโพเนนต์ถูกเรนเดอร์
+    const interval = setInterval(() => {
+      fetchData();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const validateURL = (validURL) => {
+    const regex = /^(https?|ftp):\/\/(-\.)?([^\s/?\.#-]+\.?)+([^\s]*)$/i;
+    return regex.test(validURL);
+  };
+
+  const formatURL = (url) => {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      if (url.startsWith("www.")) {
+        return "https://" + url;
+      } else {
+        return false;
+      }
+    } else {
+      return url;
+    }
+  };
 
   const onSubmitGen = async () => {
-    try {
-      if (text.trim() === "") {
-        console.error("URL is empty");
-        return; // ถ้า URL ว่างเปล่า ไม่ต้องส่งคำขอไปยังเซิร์ฟเวอร์
-      }
-
+    const formattedURL = formatURL(text);
+    if (formattedURL) {
+      console.log("Formatted URL is:", formattedURL);
       const response = await fetch(`${svaddr}/api/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: text }),
+        body: JSON.stringify({ url: formattedURL }),
       });
-
-      if (response.ok) {
-        fetchData();
-      } else {
-        console.error("Failed to create short URL");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+      fetchData();
+    } else {
+      console.log("Invalid URL:", text);
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await fetch(`${svaddr}/api/delete/${id}`, {
-        method: "DELETE",
-      });
-      fetchData();
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDelete = (id) => {
+    fetch(`${svaddr}/api/delete/${id}`, {
+      method: "DELETE",
+    });
+    fetchData();
   };
 
   return (
-    <VStack spacing={4} align="stretch">
+    <VStack spacing={4} align="stretch" justifyContent="center">
       <Text fontSize="3xl" fontWeight="bold">
         Storten URL
       </Text>
+
       <Flex
         flexDir={{ base: "column", md: "row" }}
-        minW="600px"
+        minW="400px"
         align="center"
+        justifyContent="center"
         value={text}
-        onChange={handleChange}
       >
         <Input
           flex="1"
+          maxW="400px"
           placeholder="Enter URL"
           size={["lg", "lg"]}
           onChange={handleChange}
         />
+
         <Button
           colorScheme="teal"
           variant="outline"
@@ -87,10 +99,12 @@ function InputURL() {
           ml={{ base: "0", md: "4" }}
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGen}
+          isDisabled={!text.trim()}
         >
           Generate
         </Button>
       </Flex>
+
       <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
         {data.map((item) => (
           <CardMain
