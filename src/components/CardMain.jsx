@@ -14,7 +14,6 @@ import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
   const svaddr = "https://surl-qr-back-2.onrender.com";
-
   return (
     <Box
       display="flex"

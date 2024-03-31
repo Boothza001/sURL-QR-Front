@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
+import {
+  Input,
+  Button,
+  VStack,
+  Text,
+  HStack,
+  Flex,
+  Stack,
+} from "@chakra-ui/react";
 import CardMain from "./CardMain";
 
-export default function InputURL() {
+function InputURL() {
   const svaddr = "https://surl-qr-back-2.onrender.com";
 
   const [text, setText] = useState("");
@@ -20,6 +28,7 @@ export default function InputURL() {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
+
   const onSubmitGen = async () => {
     try {
       const response = await fetch(`${svaddr}/api/create`, {
@@ -85,19 +94,25 @@ export default function InputURL() {
           Button
         </Button>
       </Flex>
-      {data
-        .slice()
-        .reverse()
-        .map((item) => (
-          <CardMain
-            key={item._id}
-            url={item.url}
-            shortUrl={item.surl}
-            qrUrl={item.qrurl}
-            count={item.count}
-            onDelete={() => handleDelete(item._id)}
-          />
-        ))}
+      <VStack spacing={4} align="stretch" w="100%" mt={8} justify="center">
+        <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
+          {data
+            .slice()
+            .reverse()
+            .map((item) => (
+              <CardMain
+                key={item._id}
+                url={item.url}
+                shortUrl={item.surl}
+                qrUrl={item.qrurl}
+                count={item.count}
+                onDelete={() => handleDelete(item._id)}
+              />
+            ))}
+        </HStack>
+      </VStack>
     </VStack>
   );
 }
+
+export default InputURL;
