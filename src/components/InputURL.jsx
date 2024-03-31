@@ -3,7 +3,6 @@ import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import CardMain from "./CardMain";
 
 function InputURL() {
-  // const svaddr = "https://surl-qr-back-2.onrender.com";
   const svaddr = "http://localhost:3000";
 
   const [text, setText] = useState("");
@@ -25,12 +24,15 @@ function InputURL() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  }, []); // เรียก fetchData เมื่อคอมโพเนนต์ถูกเรนเดอร์
 
   const onSubmitGen = async () => {
     try {
+      if (text.trim() === "") {
+        console.error("URL is empty");
+        return; // ถ้า URL ว่างเปล่า ไม่ต้องส่งคำขอไปยังเซิร์ฟเวอร์
+      }
+
       const response = await fetch(`${svaddr}/api/create`, {
         method: "POST",
         headers: {
@@ -38,6 +40,7 @@ function InputURL() {
         },
         body: JSON.stringify({ url: text }),
       });
+
       if (response.ok) {
         fetchData();
       } else {
