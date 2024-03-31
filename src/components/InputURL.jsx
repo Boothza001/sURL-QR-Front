@@ -106,16 +106,19 @@ function InputURL() {
       </Flex>
 
       <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
-        {data.map((item) => (
-          <CardMain
-            key={item._id}
-            url={item.url}
-            shortUrl={item.surl}
-            qrUrl={item.qrurl}
-            count={item.count}
-            onDelete={() => handleDelete(item._id)}
-          />
-        ))}
+        {data
+          .slice()
+          .reverse()
+          .map((item) => (
+            <CardMain
+              key={item._id}
+              url={item.url}
+              shortUrl={item.surl}
+              qrUrl={item.qrurl}
+              count={item.count}
+              onDelete={() => handleDelete(item._id)}
+            />
+          ))}
       </HStack>
     </VStack>
   );
