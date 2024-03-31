@@ -13,7 +13,9 @@ import { DeleteIcon, CopyIcon } from "@chakra-ui/icons";
 import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
+  // const svaddr = "https://surl-qr-back-2.onrender.com";
+  const svaddr = "http://localhost:3000";
+
   return (
     <Box
       display="flex"
@@ -40,15 +42,18 @@ function CardMain({ url, shortUrl, count, onDelete }) {
       >
         <QRCode value={`${svaddr}/${shortUrl}`} renderAs="canvas" size="250" />
       </Box>
+
       <Stack spacing={4} alignItems="center">
         <InputGroup>
           <InputLeftAddon children="URL" />
           <Input type="text" value={url} isReadOnly />
         </InputGroup>
+
         <Link href={`${svaddr}/${shortUrl}`} isExternal>
           {`${svaddr}/${shortUrl}`}
         </Link>
       </Stack>
+
       <Stack
         direction="row"
         spacing={4}
@@ -61,6 +66,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
             {count}
           </Box>
         </Center>
+
         <Button
           leftIcon={<CopyIcon />}
           colorScheme="blue"
@@ -71,6 +77,7 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         >
           Copy
         </Button>
+
         <Button
           leftIcon={<DeleteIcon />}
           colorScheme="red"

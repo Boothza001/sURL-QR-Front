@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Input,
-  Button,
-  VStack,
-  Text,
-  HStack,
-  Flex,
-  Stack,
-} from "@chakra-ui/react";
+import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import CardMain from "./CardMain";
 
 function InputURL() {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
+  // const svaddr = "https://surl-qr-back-2.onrender.com";
+  const svaddr = "http://localhost:3000";
 
   const [text, setText] = useState("");
   const handleChange = (event) => {
@@ -19,13 +12,20 @@ function InputURL() {
   };
 
   const [data, setData] = useState([]);
-  const [inputFilled, setInputFilled] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${svaddr}/api/show`);
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(() => {
-      fetchData();
-    }, 2000);
+    const interval = setInterval(fetchData, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -48,16 +48,6 @@ function InputURL() {
     }
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${svaddr}/api/show`);
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleDelete = async (id) => {
     try {
       await fetch(`${svaddr}/api/delete/${id}`, {
@@ -70,8 +60,8 @@ function InputURL() {
   };
 
   return (
-    <VStack spacing={4}>
-      <Text fontSize="3xl" as="b">
+    <VStack spacing={4} align="stretch">
+      <Text fontSize="3xl" fontWeight="bold">
         Storten URL
       </Text>
       <Flex
@@ -81,7 +71,12 @@ function InputURL() {
         value={text}
         onChange={handleChange}
       >
-        <Input flex="1" placeholder="url : " size={["lg", "lg"]} />
+        <Input
+          flex="1"
+          placeholder="Enter URL"
+          size={["lg", "lg"]}
+          onChange={handleChange}
+        />
         <Button
           colorScheme="teal"
           variant="outline"
@@ -89,28 +84,22 @@ function InputURL() {
           ml={{ base: "0", md: "4" }}
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGen}
-          type="submit"
         >
-          Button
+          Generate
         </Button>
       </Flex>
-      <VStack spacing={4} align="stretch" w="100%" mt={8} justify="center">
-        <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
-          {data
-            .slice()
-            .reverse()
-            .map((item) => (
-              <CardMain
-                key={item._id}
-                url={item.url}
-                shortUrl={item.surl}
-                qrUrl={item.qrurl}
-                count={item.count}
-                onDelete={() => handleDelete(item._id)}
-              />
-            ))}
-        </HStack>
-      </VStack>
+      <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
+        {data.map((item) => (
+          <CardMain
+            key={item._id}
+            url={item.url}
+            shortUrl={item.surl}
+            qrUrl={item.qrurl}
+            count={item.count}
+            onDelete={() => handleDelete(item._id)}
+          />
+        ))}
+      </HStack>
     </VStack>
   );
 }
