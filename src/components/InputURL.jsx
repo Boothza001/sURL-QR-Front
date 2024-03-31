@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, VStack, Text, HStack, Flex } from "@chakra-ui/react";
 import CardMain from "./CardMain";
+const svaddr = "https://surl-qr-back-2.onrender.com";
+  // const svaddr = "http://localhost:3000";
+
 
 function InputURL() {
-  const svaddr = "https://surl-qr-back-2.onrender.com";
 
   const [text, setText] = useState("");
   const handleChange = (event) => {
