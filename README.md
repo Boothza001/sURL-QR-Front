@@ -39,7 +39,7 @@
 4. Type command in Terminal     `cd ../..`
 5. Type command in Terminal.     `npm run dev`
 
-6. Open the website by pressing Ctrl+Click / Cmd+Click or http://localhost:5173/.
+6. Open the website by pressing Ctrl+Click / Cmd+Click or http://localhost:5173/
 
 [![](https://i.postimg.cc/k57msw9n/Screenshot-2024-03-31-141041.png)](https://postimg.cc/CRrXLGzt)
 
