@@ -4,43 +4,38 @@ import CardMain from "./CardMain";
 
 export default function InputURL() {
   const svaddr = "https://surl-qr-back-2.onrender.com";
-  // const svaddr = "http://localhost:3000";
 
   const [text, setText] = useState("");
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
   const [data, setData] = useState([]);
   const [inputFilled, setInputFilled] = useState(false);
-  const urlRegex = /^https:\/\//i;
 
   useEffect(() => {
     fetchData();
-  });
-
-  useEffect(() => {
-    setInputFilled(text.trim() !== "");
-  }, [text]);
-
-  const handleChange = (e) => setText(e.target.value);
-
+    const interval = setInterval(() => {
+      fetchData();
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
   const onSubmitGen = async () => {
-    if (inputFilled) {
-      try {
-        const response = await fetch(text);
-        if (response.ok) {
-          const qrResponse = await fetch(`${svaddr}/api/create`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ url: text }),
-          });
-          fetchData();
-          setText("");
-        } else {
-          setText("");
-        }
-      } catch (error) {
-        setText("");
+    try {
+      const response = await fetch(`${svaddr}/api/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: text }),
+      });
+      if (response.ok) {
+        fetchData();
+      } else {
+        console.error("Failed to create short URL");
       }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -70,13 +65,14 @@ export default function InputURL() {
       <Text fontSize="3xl" as="b">
         Storten URL
       </Text>
-      <Flex flexDir={{ base: "column", md: "row" }} minW="600px" align="center">
-        <Input
-          flex="1"
-          placeholder="url : "
-          size={["lg", "lg"]}
-          onChange={handleChange}
-        />
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        minW="600px"
+        align="center"
+        value={text}
+        onChange={handleChange}
+      >
+        <Input flex="1" placeholder="url : " size={["lg", "lg"]} />
         <Button
           colorScheme="teal"
           variant="outline"
@@ -84,29 +80,24 @@ export default function InputURL() {
           ml={{ base: "0", md: "4" }}
           mt={{ base: "4", md: "0" }}
           onClick={onSubmitGen}
-          name="url"
-          isDisabled={!inputFilled}
+          type="submit"
         >
           Button
         </Button>
       </Flex>
-      <VStack spacing={4} align="stretch" w="100%" mt={8} justify="center">
-        <HStack spacing={4} align="start" justify="center" w="100%" wrap="wrap">
-          {data
-            .slice()
-            .reverse()
-            .map((item) => (
-              <CardMain
-                key={item._id}
-                url={item.url}
-                shortUrl={item.surl}
-                qrUrl={item.qrurl}
-                count={item.count}
-                onDelete={() => handleDelete(item._id)}
-              />
-            ))}
-        </HStack>
-      </VStack>
+      {data
+        .slice()
+        .reverse()
+        .map((item) => (
+          <CardMain
+            key={item._id}
+            url={item.url}
+            shortUrl={item.surl}
+            qrUrl={item.qrurl}
+            count={item.count}
+            onDelete={() => handleDelete(item._id)}
+          />
+        ))}
     </VStack>
   );
 }

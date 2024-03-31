@@ -14,21 +14,6 @@ import QRCode from "qrcode.react";
 
 function CardMain({ url, shortUrl, count, onDelete }) {
   const svaddr = "https://surl-qr-back-2.onrender.com";
-  // const svaddr = "http://localhost:3000";
-
-  // const handleShortUrlClick = async () => {
-  //   try {
-  //     const response = await fetch(`${svaddr}/${shortUrl}`);
-  //     if (response.ok) {
-  //       window.open(url, "_blank");
-  //       const data = await response.json();
-  //     } else {
-  //       console.error("Error redirecting:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error redirecting:", error);
-  //   }
-  // };
 
   return (
     <Box
@@ -54,26 +39,16 @@ function CardMain({ url, shortUrl, count, onDelete }) {
         justifyContent="center"
         alignItems="center"
       >
-        <QRCode value={`${svaddr}/${shortUrl}`} alt="QR Code" size="250" />
+        <QRCode value={`${svaddr}/${shortUrl}`} renderAs="canvas" size="250" />
       </Box>
       <Stack spacing={4} alignItems="center">
         <InputGroup>
           <InputLeftAddon children="URL" />
           <Input type="text" value={url} isReadOnly />
         </InputGroup>
-        {/* <InputGroup>
-          <InputLeftAddon children="sURL" />
-          <Input
-            type="text"
-            value={`${svaddr}/${shortUrl}`}
-            onClick={handleShortUrlClick}
-            isReadOnly
-          />
-        </InputGroup> */}
-        <Link
-          href={`${svaddr}/${shortUrl}`}
-          isExternal
-        >{`${svaddr}/${shortUrl}`}</Link>
+        <Link href={`${svaddr}/${shortUrl}`} isExternal>
+          {`${svaddr}/${shortUrl}`}
+        </Link>
       </Stack>
       <Stack
         direction="row"
