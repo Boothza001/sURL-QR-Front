@@ -21,9 +21,9 @@
 
 #### Download files
 1. Launch Visual Studio Code and open a Terminal window.
-2. Type command in Terminal.     `git clone https://github.com/Boothza001/url-shorten-web.git`
+2. Type command in Terminal.     `https://github.com/Boothza001/url-shorten-front.git`
 
-#### How to install Frontend
+#### How to install
 1. Type command in Terminal     `cd Front`
 2. Type command in Terminal     `npm i`
 2. Type command in Terminal     `cd src\components`
