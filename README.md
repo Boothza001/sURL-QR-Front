@@ -1,21 +1,46 @@
-# sURL-QR (front) 
-Step 1 : เข้า VS-Code เข้า Terminal และพิมพ์
-```
-https://github.com/Boothza001/sURL-QR-Front.git
-``` 
-Step 2 : พิมพ์ใน Terminal 
-```
-cd sURL-QR-Front
-```
-Step 4 : พิมพ์ใน Terminal
-```
-npm i
-```
-Step 5 : พิมพ์ใน Terminal
-```
-npm run dev
-```
-Step 6 : เพื่อเปิดหน้าเว็บไซต์ด้วยการเข้า url localhost ที่ terminal
-```
-http://localhost:Portnumber/
-```
+# Shorten URL
+
+[![qrcode-web.png](https://i.postimg.cc/c4tnL310/qrcode-web.png)](https://ugritbooth.netlify.app/)
+
+### Feature
+- Convert URL to Short URL
+- Convert URL to QR Code
+- Track the number of times Short URL and QR Code are used.
+
+# How to use website
+1. Enter the url and press the generate button.
+
+[![](https://i.postimg.cc/0jc5GDgW/Screenshot-2024-03-31-135436.png)](https://postimg.cc/fSShD3Rm)
+
+2. Copy Short URL
+
+[![](https://i.postimg.cc/V69X8GMJ/Screenshot-2024-03-31-140043.png)](https://postimg.cc/7G651NK4)
+
+
+# How to install
+
+#### Download files
+1. Launch Visual Studio Code and open a Terminal window.
+2. Type command in Terminal.     `git clone https://github.com/Boothza001/url-shorten-web.git`
+
+#### How to install Frontend
+1. Type command in Terminal     `cd Front`
+2. Type command in Terminal     `npm i`
+2. Type command in Terminal     `cd src\components`
+3. Enter the backend url.
+- CardMain.jsx
+
+[![](https://i.postimg.cc/76mPy0B3/Screenshot-2024-03-31-133244.png)](https://postimg.cc/cgtGRgGC)
+
+- InputURL.jsx
+
+[![](https://i.postimg.cc/JnLncRFF/Screenshot-2024-03-31-134124.png)](https://postimg.cc/t1Bp9Gpd)
+
+4. Type command in Terminal     `cd ../..`
+5. Type command in Terminal.     `npm run dev`
+
+6. Open the website by pressing ctrl + click.
+
+[![](https://i.postimg.cc/k57msw9n/Screenshot-2024-03-31-141041.png)](https://postimg.cc/CRrXLGzt)
+
+7. finish
