@@ -1,4 +1,4 @@
-# Shorten URL Front
+# Shorten URL (Frontend)
 
 [![qrcode-web.png](https://i.postimg.cc/c4tnL310/qrcode-web.png)](https://ugritbooth.netlify.app/)
 
@@ -44,3 +44,9 @@
 [![](https://i.postimg.cc/k57msw9n/Screenshot-2024-03-31-141041.png)](https://postimg.cc/CRrXLGzt)
 
 7. finish
+
+#### Stack tools
+- React.js(Vite)
+- Chakra-ui
+- netlify
+- qrcode.react
