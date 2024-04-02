@@ -10,11 +10,11 @@
 # How to use website
 1. Enter the url and press the generate button.
 
-[![](https://i.postimg.cc/0jc5GDgW/Screenshot-2024-03-31-135436.png)](https://postimg.cc/fSShD3Rm)
+![](https://i.postimg.cc/0jc5GDgW/Screenshot-2024-03-31-135436.png)
 
 2. Copy Short URL
 
-[![](https://i.postimg.cc/V69X8GMJ/Screenshot-2024-03-31-140043.png)](https://postimg.cc/7G651NK4)
+![](https://i.postimg.cc/V69X8GMJ/Screenshot-2024-03-31-140043.png)
 
 
 # How to install
@@ -30,18 +30,18 @@
 3. Enter the backend url.
 - CardMain.jsx
 
-[![](https://i.postimg.cc/76mPy0B3/Screenshot-2024-03-31-133244.png)](https://postimg.cc/cgtGRgGC)
+![](https://i.postimg.cc/76mPy0B3/Screenshot-2024-03-31-133244.png)
 
 - InputURL.jsx
 
-[![](https://i.postimg.cc/JnLncRFF/Screenshot-2024-03-31-134124.png)](https://postimg.cc/t1Bp9Gpd)
+![](https://i.postimg.cc/JnLncRFF/Screenshot-2024-03-31-134124.png)
 
 4. Type command in Terminal     `cd ../..`
 5. Type command in Terminal.     `npm run dev`
 
 6. Open the website by pressing Ctrl+Click / Cmd+Click or http://localhost:5173/
 
-[![](https://i.postimg.cc/k57msw9n/Screenshot-2024-03-31-141041.png)](https://postimg.cc/CRrXLGzt)
+![](https://i.postimg.cc/k57msw9n/Screenshot-2024-03-31-141041.png)
 
 7. finish
 
